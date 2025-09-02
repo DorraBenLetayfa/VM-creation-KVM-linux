@@ -1,0 +1,31 @@
+---
+# defaults file for vmcreation
+
+# Basic VM Configuration
+vm_name: "ansible-vm"
+vm_memory: 1024
+vm_vcpus: 1
+vm_disk_size: 10
+vm_os_variant: "alpinelinux3.16"
+
+# Storage
+vm_iso_path: "/path/to/your/installation.iso"
+vm_disk_path: "/var/lib/libvirt/images/{{ vm_name }}.qcow2"
+vm_disk_format: "qcow2"
+
+# Network
+vm_network: "default"
+vm_network_model: "virtio"
+
+# Hardware
+vm_arch: "x86_64"
+vm_machine: "pc-q35-7.2"
+vm_clock: "utc"
+
+# Graphics (set to 'none' for headless)
+vm_graphics_type: "spice"
+vm_graphics_listen: "127.0.0.1"
+
+# Features
+vm_cpu_mode: "host-passthrough"
+vm_features: ["acpi", "apic"]

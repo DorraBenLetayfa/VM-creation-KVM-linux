@@ -1,0 +1,47 @@
+---
+# tasks file for vmcreation
+- name: Check if VM already exists
+  community.libvirt.virt:
+    name: "{{ vm_name }}"
+  register: vm_info
+  changed_when: false
+
+- name: Create disk image if it doesn't exist
+  community.libvirt.virt_vol:
+    name: "{{ vm_name }}.qcow2"
+    pool: "default"
+    size: "{{ vm_disk_size }}G"
+    format: "{{ vm_disk_format }}"
+    state: present
+  when: not vm_info.exists
+
+- name: Generate libvirt XML configuration
+  ansible.builtin.template:
+    src: vm_template.xml.j2
+    dest: "/tmp/{{ vm_name }}.xml"
+  when: not vm_info.exists
+
+- name: Define and start the virtual machine
+  community.libvirt.virt:
+    name: "{{ vm_name }}"
+    state: running
+    command: define
+    xml: "{{ lookup('file', '/tmp/{{ vm_name }}.xml') }}"
+  register: vm_result
+  when: not vm_info.exists
+
+- name: Start existing VM if it's not running
+  community.libvirt.virt:
+    name: "{{ vm_name }}"
+    state: running
+  when: vm_info.exists and vm_info.state != 'running'
+
+- name: Clean up temporary XML file
+  ansible.builtin.file:
+    path: "/tmp/{{ vm_name }}.xml"
+    state: absent
+  ignore_errors: true
+
+- name: Show VM status
+  ansible.builtin.debug:
+    msg: "VM '{{ vm_name }}' is {{ vm_result.state | default(vm_info.state) }}"
