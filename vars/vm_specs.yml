@@ -1,0 +1,23 @@
+---
+# vars/vm_specs.yml
+vm_list:
+  - name: "web-server-01"
+    memory: 2048
+    vcpus: 2
+    disk_size: 20
+    iso_path: "/var/lib/libvirt/isos/ubuntu-22.04.iso"
+    network: "default"
+
+  - name: "db-server-01"
+    memory: 4096
+    vcpus: 4
+    disk_size: 50
+    iso_path: "/var/lib/libvirt/isos/rocky-9.2.iso"
+    network: "default"
+
+  - name: "test-vm"
+    memory: 1024
+    vcpus: 1
+    disk_size: 10
+    iso_path: "/var/lib/libvirt/isos/alpine-virt-3.18.iso"
+    network: "default"
