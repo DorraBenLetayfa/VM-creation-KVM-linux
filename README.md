@@ -50,3 +50,10 @@ vm-playbooks/
 │           └── vm.xml.j2
 └── vars/
     └── vm_specs.yml
+
+
+#after creation of VMs
+- set a fixed IP for the machine
+- set a hostname 
+- test ip + hostname
+- test machines can communicate with each other ping, nslookup(DNs is already configured)
