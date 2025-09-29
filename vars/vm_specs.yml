@@ -5,8 +5,8 @@ vm_list:
     memory: 2048
     vcpus: 2
     disk_size: 20
-    iso_path: "/var/lib/libvirt/isos/ubuntu-22.04.iso"
-    network: "default"
+    iso_path: "/home/admin/Downloads/Fedora-Workstation-Live-x86_64-40-1.14.iso"
+    network: "dbl-net"
   
 
   # - name: "vm02"
