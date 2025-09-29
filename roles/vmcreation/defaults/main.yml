@@ -1,6 +1,9 @@
 ---
 # defaults file for vmcreation
 
+# User config 
+vm_root_pass: redhat
+
 # Basic VM Configuration
 vm_name: "ansible-vm"
 vm_memory: 1024
@@ -9,17 +12,18 @@ vm_disk_size: 10
 vm_os_variant: "alpinelinux3.16"
 
 # Storage
-vm_iso_path: "/path/to/your/installation.iso"
-vm_disk_path: "/var/lib/libvirt/images/{{ vm_name }}.qcow2"
+storage_path: "/mnt/storage/dorra"
+vm_iso_path: "/home/admin/Downloads/Fedora-Workstation-Live-x86_64-40-1.14.iso"
+vm_disk_path: "{{storage_path}}/{{ vm_name }}.qcow2"
 vm_disk_format: "qcow2"
 
 # Network
-vm_network: "default"
+vm_network: "net-dbl"
 vm_network_model: "virtio"
 
 # Hardware
 vm_arch: "x86_64"
-vm_machine: "pc-q35-7.2"
+vm_machine: "pc-i440fx-rhel7.6.0"
 vm_clock: "utc"
 
 # Graphics (set to 'none' for headless)
@@ -27,5 +31,5 @@ vm_graphics_type: "spice"
 vm_graphics_listen: "127.0.0.1"
 
 # Features
-vm_cpu_mode: "host-passthrough"
+vm_cpu_mode: "host-model"
 vm_features: ["acpi", "apic"]

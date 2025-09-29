@@ -3,40 +3,10 @@
 ---
 - name: Create multiple virtual machines
   hosts: hypervisor
-  vars:
-    vm_list:
-      - name: "vm1"
-        memory: 2048
-        vcpus: 2
-        disk_size: 20
-        iso_path: "/var/lib/libvirt/isos/ubuntu-22.04.iso"
-        network: "dorra"
-
-      - name: "vm2"
-        memory: 4096
-        vcpus: 4
-        disk_size: 50
-        iso_path: "/var/lib/libvirt/isos/rocky-9.2.iso"
-        network: "dorra"
-
-      - name: "vm3"
-        memory: 1024
-        vcpus: 1
-        disk_size: 15
-        iso_path: "/var/lib/libvirt/isos/alpine-virt-3.18.iso"
-        network: "dorra"
+  vars_files:
+    - vars/vm_specs.yml
 
   tasks:
     - name: Create virtual machines
       include_role:
         name: vmcreation
-      vars:
-        vm_name: "{{ item.name }}"
-        vm_memory: "{{ item.memory }}"
-        vm_vcpus: "{{ item.vcpus }}"
-        vm_disk_size: "{{ item.disk_size }}"
-        vm_iso_path: "{{ item.iso_path }}"
-        vm_network: "{{ item.network }}"
-      loop: "{{ vm_list }}"
-      loop_control:
-        label: "{{ item.name }}"

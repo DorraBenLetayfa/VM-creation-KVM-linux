@@ -27,7 +27,7 @@ See `defaults/main.yml` for all available variables with defaults.
         
 # VM-creation-KVM-linux
 
-- check resources of the lab 
+- check resources of the lab (not part of the playbook)
 - create a role for VM creation
 - customize it with variables file
 - test it 
@@ -56,4 +56,4 @@ vm-playbooks/
 - set a fixed IP for the machine
 - set a hostname 
 - test ip + hostname
-- test machines can communicate with each other ping, nslookup(DNs is already configured)
+- test machines can communicate with each other ping, nslookup(DNS is already configured)
