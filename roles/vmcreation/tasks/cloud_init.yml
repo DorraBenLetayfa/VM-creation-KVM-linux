@@ -1,6 +1,6 @@
 - name: Make directory for cloud-init files
   ansible.builtin.file:
-    path: "/var/lib/libvirt/images/{{ vm_name }}"
+    path: "{{storage_path}}/{{ vm_name }}"
     state: directory
     mode: '0755'
     become: true
@@ -8,24 +8,24 @@
 - name: Render user-data
   ansible.builtin.template:
     src: user-data.j2
-    dest: "/var/lib/libvirt/images/{{ vm_name }}/user-data"
+    dest: "{{storage_path}}/{{ vm_name }}/user-data"
     mode: '0644'
     become: true
 
 - name: Render meta-data
   ansible.builtin.template:
     src: meta-data.j2
-    dest: "/var/lib/libvirt/images/{{ vm_name }}/meta-data"
+    dest: "{{storage_path}}/{{ vm_name }}/meta-data"
     mode: '0644'
     become: true
 
 - name: Generate cloud-init seed ISO
   ansible.builtin.command:
     cmd: >
-      genisoimage -output /var/lib/libvirt/images/{{ vm_name }}/seed.iso
+      genisoimage -output {{storage_path}}/{{ vm_name }}/seed.iso
         -volid cidata -joliet -rock
-        /var/lib/libvirt/images/{{ vm_name }}/user-data
-        /var/lib/libvirt/images/{{ vm_name }}/meta-data
+        {{storage_path}}/{{ vm_name }}/user-data
+        {{storage_path}}/{{ vm_name }}/meta-data
   args:
-    creates: "/var/lib/libvirt/images/{{ vm_name }}/seed.iso"
+    creates: "{{storage_path}}/{{ vm_name }}/seed.iso"
   become: true
