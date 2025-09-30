@@ -1,15 +1,12 @@
 ---
 # defaults file for vmcreation
 
-# User config 
-vm_root_pass: redhat
-
 # Basic VM Configuration
 vm_name: "ansible-vm"
 vm_memory: 1024
 vm_vcpus: 1
 vm_disk_size: 10
-vm_os_variant: "alpinelinux3.16"
+vm_os_variant: "generic"
 
 # Storage
 pool: "dbl_storage"
@@ -34,3 +31,8 @@ vm_graphics_listen: "127.0.0.1"
 # Features
 vm_cpu_mode: "host-model"
 vm_features: ["acpi", "apic"]
+
+# User config
+vm_user: ansible
+vm_password: ansible
+ssh_public_key: "~/.ssh/id_rsa.pub"

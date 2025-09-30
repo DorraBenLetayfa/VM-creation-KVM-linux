@@ -40,6 +40,9 @@
     dest: "/tmp/{{ vm_name }}.xml"
   when: vm_info.status is not defined
 
+- name: Prepare cloud-init ISO
+  import_tasks: cloud_init.yml
+
 - name: Define VM
   ansible.builtin.command: virsh -c qemu:///system define /tmp/{{ vm_name }}.xml
   become: true

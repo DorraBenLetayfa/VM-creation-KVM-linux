@@ -50,6 +50,13 @@
       <target dev='hda' bus='ide'/>
     </disk>
 
+    <disk type='file' device='cdrom'>
+      <driver name='qemu' type='raw'/>
+      <source file='/var/lib/libvirt/images/{{ vm_name }}/seed.iso'/>
+      <target dev='hdb' bus='ide'/>
+      <readonly/>
+    </disk>
+
     <!-- Network Interface -->
     <interface type='network'>
       <source network='{{ vm_network }}'/>
