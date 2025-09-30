@@ -46,12 +46,6 @@
     <!-- CD-ROM for Installation -->
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='{{ vm_iso_path }}'/>
-      <target dev='hda' bus='ide'/>
-    </disk>
-
-    <disk type='file' device='cdrom'>
-      <driver name='qemu' type='raw'/>
       <source file='{{storage_path}}/{{ vm_name }}/seed.iso'/>
       <target dev='hdb' bus='ide'/>
       <readonly/>
