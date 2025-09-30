@@ -2,11 +2,12 @@
 ## Example Playbook to Create 3 VMs
 ---
 - name: Create multiple virtual machines
-  hosts: hypervisor
+  hosts: 127.0.0.1
+  become: true
   vars_files:
-    - vars/vm_specs.yml
+    - ../vars/vm_specs.yml
 
   tasks:
     - name: Create virtual machines
       include_role:
-        name: vmcreation
+        name: ../roles/vmcreation

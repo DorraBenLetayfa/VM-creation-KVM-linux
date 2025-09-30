@@ -12,6 +12,7 @@ vm_disk_size: 10
 vm_os_variant: "alpinelinux3.16"
 
 # Storage
+pool: "dbl_storage"
 storage_path: "/mnt/storage/dorra"
 vm_iso_path: "/home/admin/Downloads/Fedora-Workstation-Live-x86_64-40-1.14.iso"
 vm_disk_path: "{{storage_path}}/{{ vm_name }}.qcow2"

@@ -57,3 +57,15 @@ vm-playbooks/
 - set a hostname 
 - test ip + hostname
 - test machines can communicate with each other ping, nslookup(DNS is already configured)
+
+
+# How to run playbook
+ansible-galaxy collection install community.libvirt #on host                                                                   
+ansible 127.0.0.1 -m ping                                                                      
+ansible-playbook playbooks/playbook-createvm.yml -v --ask-become-pass                                                                              
+
+
+
+# Tests done
+- test playbook when the a VM with same name exist                                                                
+- test VM creation 

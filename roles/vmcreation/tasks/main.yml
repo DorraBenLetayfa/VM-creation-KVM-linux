@@ -3,38 +3,62 @@
 - name: Check if VM already exists
   community.libvirt.virt:
     name: "{{ vm_name }}"
+    command: status
   register: vm_info
+  become: true
   changed_when: false
+  failed_when: false
+
+- name: Debug VM info
+  debug:
+    var: vm_info
+  when: vm_info.status is defined
+
+- name: Stop if VM already exists
+  fail:
+    msg: "VM {{ vm_name }} already exists! Stopping playbook."
+  when: vm_info.status is defined
 
 - name: Create disk image if it doesn't exist
-  community.libvirt.virt_vol:
+  community.libvirt.virt_volume:
     name: "{{ vm_name }}.qcow2"
-    pool: "default"
-    size: "{{ vm_disk_size }}G"
-    format: "{{ vm_disk_format }}"
+    pool: "{{ pool }}"
     state: present
-  when: not vm_info.exists
+    xml: |
+      <volume>
+        <name>{{ vm_name }}.qcow2</name>
+        <capacity unit="G">{{ vm_disk_size }}</capacity>
+        <target>
+          <format type="{{ vm_disk_format }}"/>
+        </target>
+      </volume>
+  when: vm_info.status is not defined
 
 - name: Generate libvirt XML configuration
   ansible.builtin.template:
     src: vm_template.xml.j2
     dest: "/tmp/{{ vm_name }}.xml"
-  when: not vm_info.exists
+  when: vm_info.status is not defined
 
-- name: Define and start the virtual machine
+- name: Define VM
+  ansible.builtin.command: virsh -c qemu:///system define /tmp/{{ vm_name }}.xml
+  become: true
+
+- name: Start VM
+  ansible.builtin.command: virsh -c qemu:///system  start {{ vm_name }}
+  become: true
+
+- name: Get VM info
   community.libvirt.virt:
     name: "{{ vm_name }}"
-    state: running
-    command: define
-    xml: "{{ lookup('file', '/tmp/{{ vm_name }}.xml') }}"
-  register: vm_result
-  when: not vm_info.exists
+    command: status
+  register: vm_info
 
 - name: Start existing VM if it's not running
   community.libvirt.virt:
     name: "{{ vm_name }}"
     state: running
-  when: vm_info.exists and vm_info.state != 'running'
+  when: vm_info.status is not defined and vm_result is defined
 
 - name: Clean up temporary XML file
   ansible.builtin.file:
@@ -44,4 +68,4 @@
 
 - name: Show VM status
   ansible.builtin.debug:
-    msg: "VM '{{ vm_name }}' is {{ vm_result.state | default(vm_info.state) }}"
+    msg: "VM '{{ vm_name }}' is {{ vm_info.status }}"
