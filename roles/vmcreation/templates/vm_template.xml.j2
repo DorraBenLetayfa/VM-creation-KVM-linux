@@ -52,7 +52,7 @@
 
     <disk type='file' device='cdrom'>
       <driver name='qemu' type='raw'/>
-      <source file='/var/lib/libvirt/images/{{ vm_name }}/seed.iso'/>
+      <source file='{{storage_path}}/{{ vm_name }}/seed.iso'/>
       <target dev='hdb' bus='ide'/>
       <readonly/>
     </disk>

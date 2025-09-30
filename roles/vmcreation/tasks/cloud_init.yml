@@ -3,21 +3,21 @@
     path: "{{storage_path}}/{{ vm_name }}"
     state: directory
     mode: '0755'
-    become: true
+  become: true
 
 - name: Render user-data
   ansible.builtin.template:
     src: user-data.j2
     dest: "{{storage_path}}/{{ vm_name }}/user-data"
     mode: '0644'
-    become: true
+  become: true
 
 - name: Render meta-data
   ansible.builtin.template:
     src: meta-data.j2
     dest: "{{storage_path}}/{{ vm_name }}/meta-data"
     mode: '0644'
-    become: true
+  become: true
 
 - name: Generate cloud-init seed ISO
   ansible.builtin.command:
