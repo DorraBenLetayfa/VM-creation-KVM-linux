@@ -13,4 +13,4 @@
         name: ../roles/vmcreation
       loop: "{{ vms }}"
       loop_control:
-        label: "{{ item.name }}"
+        label: "{{ item.vm_name }}"
