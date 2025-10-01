@@ -19,6 +19,26 @@
     msg: "VM {{ vm_name }} already exists! Stopping playbook."
   when: vm_info.status is defined
 
+- name: Check if VM directory exists
+  ansible.builtin.stat:
+    path: "{{ storage_path }}/{{ vm_name }}"
+  register: vm_dir
+
+- name: Debug directory existence
+  ansible.builtin.debug:
+    msg: "Directory exists: {{ vm_dir.stat.exists }}"
+
+# - name: Stop if directory already exists
+#   fail:
+#     msg: "directory {{ storage_path }}/ {{  vm_name }} already exists! Stopping playbook."
+#   when: vm_dir.stat.exists
+
+- name: Remove VM directory if it exists
+  ansible.builtin.file:
+    path: "{{ storage_path }}/{{ vm_name }}"
+    state: absent
+  when: vm_dir.stat.exists
+
 # Ensure VM folder exists
 - name: Make VM directory
   file:
@@ -30,7 +50,7 @@
 # Download base Fedora cloud image if missing
 - name: Download Fedora cloud image
   ansible.builtin.get_url:
-    url: https://mirror.atl.adaptivedatanetworks.com/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2 
+    url: "{{ vm_cloud_iso }}" 
     dest: "{{ storage_path }}/{{ vm_name }}.qcow2"
     mode: '0644'
     force: no

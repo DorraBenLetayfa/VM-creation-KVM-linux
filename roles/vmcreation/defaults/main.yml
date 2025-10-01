@@ -13,13 +13,16 @@ pool: "dbl_storage"
 #storage_path: "/mnt/storage/dorra"
 storage_path: "/mnt/data/dorra"
 vm_iso_path: "/home/admin/Downloads/Fedora-Workstation-Live-x86_64-40-1.14.iso"
+vm_cloud_iso: "https://mirror.atl.adaptivedatanetworks.com/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2"
 vm_disk_path: "{{storage_path}}/{{ vm_name }}.qcow2"
 vm_disk_format: "qcow2"
 
 # Network
 vm_network: "net-dbl"
 vm_network_model: "virtio"
-vm_ip: 192.168.88.88
+vm_ip: 192.168.88.123
+vm_gateway: 192.168.88.1
+vm_nic: "eth0"
 
 # Hardware
 vm_arch: "x86_64"

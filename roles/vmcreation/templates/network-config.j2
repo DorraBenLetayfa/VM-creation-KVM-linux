@@ -2,13 +2,13 @@
 network:
   version: 2
   ethernets:
-    {{ primary_iface }}:
+    {{ vm_nic|default("ens3") }}:
       dhcp4: no
       addresses:
         - "{{ vm_ip }}/24"
-      gateway4: 192.168.88.1
+      gateway4: "{{ vm_gateway }}"
       nameservers:
         addresses:
-          - 8.8.8.8
-          - 8.8.4.4
-          - {{ vm_ip }}
+          - "8.8.8.8"
+          - "8.8.4.4"
+          - "{{ vm_ip }}"

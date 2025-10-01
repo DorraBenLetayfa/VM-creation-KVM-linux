@@ -16,14 +16,14 @@ See `defaults/main.yml` for all available variables with defaults.
 
 ### Create a single VM:
 ```yaml
-- hosts: hypervisor
+- hosts: localhost
   roles:
-    - role: vm-provisioner
+    - role: vmcreation
       vars:
         vm_name: "my-vm"
         vm_memory: 2048
         vm_vcpus: 2
-        vm_iso_path: "/path/to/ubuntu.iso"
+        vm_iso_path: "/path/to/os.iso"
         
 # VM-creation-KVM-linux
 
@@ -72,3 +72,6 @@ ansible-playbook playbooks/playbook-createvm.yml -v --ask-become-pass
 - test OS installation automatically using cloud-init image
 - test setting hostname 
 - test setting user + password 
+- test setting static IP with ip a 
+- test setting nameservers with resolvectl status 
+- test ping 8.8.8.8 
