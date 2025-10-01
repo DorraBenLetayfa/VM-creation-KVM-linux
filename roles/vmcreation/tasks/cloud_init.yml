@@ -19,9 +19,9 @@
     mode: '0644'
   become: true
 
-- name: Render network-data
+- name: Render network-config
   ansible.builtin.template:
-    src: network-data.j2
+    src: network-config.j2
     dest: "{{storage_path}}/{{ vm_name }}/network-config"
     mode: '0644'
   become: true

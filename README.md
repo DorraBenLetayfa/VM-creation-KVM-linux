@@ -56,7 +56,8 @@ vm-playbooks/
 - set a fixed IP for the machine
 - set a hostname 
 - test ip + hostname
-- test machines can communicate with each other ping
+- use the playbook to create multiple machines 
+- test machines can communicate with each other using ping
 
 
 # How to run playbook
