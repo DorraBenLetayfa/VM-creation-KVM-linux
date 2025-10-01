@@ -19,6 +19,20 @@
     mode: '0644'
   become: true
 
+- name: Detect primary network interface
+  ansible.builtin.command: ip -o -4 route show to default
+  register: default_route
+
+- set_fact:
+    primary_iface: "{{ default_route.stdout.split()[4] }}"
+
+- name: Render network-config
+  ansible.builtin.template:
+    src: network-data.j2
+    dest: "{{storage_path}}/{{ vm_name }}/network-data"
+    mode: '0644'
+  become: true
+
 - name: Generate cloud-init seed ISO
   ansible.builtin.command:
     cmd: >
@@ -26,6 +40,7 @@
         -volid cidata -joliet -rock
         {{storage_path}}/{{ vm_name }}/user-data
         {{storage_path}}/{{ vm_name }}/meta-data
+        {{storage_path}}/{{ vm_name }}/network-config
   args:
     creates: "{{storage_path}}/{{ vm_name }}/seed.iso"
   become: true

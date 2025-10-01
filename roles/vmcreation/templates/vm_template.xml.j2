@@ -39,7 +39,7 @@
     <!-- System Disk -->
     <disk type='file' device='disk'>
       <driver name='qemu' type='{{ vm_disk_format }}' cache='none' io='native'/>
-      <source file='{{ vm_disk_path }}'/>
+      <source file='{{ storage_path }}/{{ vm_name }}/{{ vm_name }}.qcow2'/>
       <target dev='vda' bus='virtio'/>
     </disk>
 

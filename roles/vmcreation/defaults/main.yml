@@ -10,7 +10,8 @@ vm_os_variant: "generic"
 
 # Storage
 pool: "dbl_storage"
-storage_path: "/mnt/storage/dorra"
+#storage_path: "/mnt/storage/dorra"
+storage_path: "/mnt/data/dorra"
 vm_iso_path: "/home/admin/Downloads/Fedora-Workstation-Live-x86_64-40-1.14.iso"
 vm_disk_path: "{{storage_path}}/{{ vm_name }}.qcow2"
 vm_disk_format: "qcow2"
@@ -18,6 +19,7 @@ vm_disk_format: "qcow2"
 # Network
 vm_network: "net-dbl"
 vm_network_model: "virtio"
+vm_ip: 192.168.88.88
 
 # Hardware
 vm_arch: "x86_64"

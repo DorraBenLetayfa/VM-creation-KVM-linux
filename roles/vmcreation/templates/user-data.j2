@@ -1,6 +1,6 @@
 #cloud-config
-hostname: {{ vm_name }}.smartek.ae
-manage_etc_hosts: true
+hostname: "{{ vm_name }}.smartek.ae"
+#manage_etc_hosts: true
 
 users:
   - name: {{ vm_user | default('ansible') }}

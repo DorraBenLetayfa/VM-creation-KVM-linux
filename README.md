@@ -56,7 +56,7 @@ vm-playbooks/
 - set a fixed IP for the machine
 - set a hostname 
 - test ip + hostname
-- test machines can communicate with each other ping, nslookup(DNS is already configured)
+- test machines can communicate with each other ping
 
 
 # How to run playbook
@@ -69,3 +69,6 @@ ansible-playbook playbooks/playbook-createvm.yml -v --ask-become-pass
 # Tests done
 - test playbook when the a VM with same name exist                                                                
 - test VM creation 
+- test OS installation automatically using cloud-init image
+- test setting hostname 
+- test setting user + password 
