@@ -11,3 +11,6 @@
     - name: Create virtual machines
       include_role:
         name: ../roles/vmcreation
+      loop: "{{ vms }}"
+      loop_control:
+        label: "{{ item.name }}"

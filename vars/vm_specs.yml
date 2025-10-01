@@ -1,24 +1,52 @@
 ---
 # vars/vm_specs.yml
-vm_list:
-  - name: "vm01"
-    memory: 2048
-    vcpus: 2
-    disk_size: 20
-    iso_path: "/home/admin/Downloads/Fedora-Workstation-Live-x86_64-40-1.14.iso"
-    network: "dbl-net"
-  
+vms:
+  - vm_name: "ansible-vm01"
+    vm_memory: 1024
+    vm_vcpus: 1
+    vm_disk_size: 10
+    vm_os_variant: "generic"
+    #storage_path: "/mnt/storage/dorra"
+    storage_path: "/mnt/data/dorra"
+    vm_cloud_iso: "https://mirror.atl.adaptivedatanetworks.com/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2"
+    vm_disk_path: "{{storage_path}}/{{ vm_name }}.qcow2"
+    vm_disk_format: "qcow2"
+    # Network
+    vm_ip: 192.168.88.123
+    vm_gateway: 192.168.88.1
+    # User config
+    vm_user: ansible1
+    vm_password: ansible1
 
-  # - name: "vm02"
-  #   memory: 4096
-  #   vcpus: 4
-  #   disk_size: 50
-  #   iso_path: "/var/lib/libvirt/isos/rocky-9.2.iso"
-  #   network: "default"
-
-  # - name: "vm03"
-  #   memory: 1024
-  #   vcpus: 1
-  #   disk_size: 10
-  #   iso_path: "/var/lib/libvirt/isos/alpine-virt-3.18.iso"
-  #   network: "default"
+  - vm_name: "ansible-vm02"
+    vm_memory: 1024
+    vm_vcpus: 1
+    vm_disk_size: 10
+    vm_os_variant: "generic"
+    #storage_path: "/mnt/storage/dorra"
+    storage_path: "/mnt/data/dorra"
+    vm_cloud_iso: "https://mirror.atl.adaptivedatanetworks.com/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2"
+    vm_disk_path: "{{storage_path}}/{{ vm_name }}.qcow2"
+    vm_disk_format: "qcow2"
+    # Network
+    vm_ip: 192.168.88.133
+    vm_gateway: 192.168.88.1
+    # User config
+    vm_user: ansible2
+    vm_password: ansible2 
+   
+#global vars
+vm_network: "net-dbl"
+vm_network_model: "virtio"
+vm_nic: "eth0"
+# Hardware
+vm_arch: "x86_64"
+vm_machine: "pc-i440fx-rhel7.6.0"
+vm_clock: "utc"
+# Graphics (set to 'none' for headless)
+vm_graphics_type: "spice"
+vm_graphics_listen: "127.0.0.1"
+# Features
+vm_cpu_mode: "host-model"
+vm_features: ["acpi", "apic"]
+ssh_public_key: "~/.ssh/id_rsa.pub"

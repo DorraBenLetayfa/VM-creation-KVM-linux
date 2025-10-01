@@ -1,5 +1,22 @@
 ---
 # tasks file for vmcreation
+
+- name: Set VM variables for this loop item
+  set_fact:
+    vm_name: "{{ item.vm_name }}"
+    vm_memory: "{{ item.vm_memory }}"
+    vm_vcpus: "{{ item.vm_vcpus }}"
+    vm_disk_size: "{{ item.vm_disk_size }}"
+    vm_os_variant: "{{ item.vm_os_variant }}"
+    storage_path: "{{ item.storage_path }}"
+    vm_cloud_iso: "{{ item.vm_cloud_iso }}"
+    vm_disk_path: "{{ item.vm_disk_path }}"
+    vm_disk_format: "{{ item.vm_disk_format }}"
+    vm_ip: "{{ item.vm_ip }}"
+    vm_gateway: "{{ item.vm_gateway }}"
+    vm_user: "{{ item.vm_user }}"
+    vm_password: "{{ item.vm_password }}"
+
 - name: Check if VM already exists
   community.libvirt.virt:
     name: "{{ vm_name }}"
