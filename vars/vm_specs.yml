@@ -8,7 +8,7 @@ vms:
     vm_os_variant: "generic"
     #storage_path: "/mnt/storage/dorra"
     storage_path: "/mnt/data/dorra"
-    vm_cloud_iso: "https://mirror.atl.adaptivedatanetworks.com/fedora/linux/releases/38/Cloud/x86_64/images/Fedora-Cloud-Base-38-1.6.x86_64.qcow2"
+    vm_cloud_iso: "https://download.opensuse.org/repositories/Cloud:/Images:/Leap_15.6/images/openSUSE-Leap-15.6.x86_64-1.0.2-NoCloud-Build1.42.qcow2"
     #vm_disk_path: "{{storage_path}}/{{ vm_name }}.qcow2"
     vm_disk_format: "qcow2"
     # Network
